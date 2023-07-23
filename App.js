@@ -1,6 +1,6 @@
-import JitsiMeet, { JitsiMeetView } from '@vidit-me/react-native-jitsi-meet';
-import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import JitsiMeet, {JitsiMeetView} from '@vidit-me/react-native-jitsi-meet';
+import React, {useState} from 'react';
+import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 
 const conferenceOptions = {
   room: 'https://meet.jit.si/OwnWorkshopsBatLoudly',
@@ -16,19 +16,6 @@ const conferenceOptions = {
 
 function App() {
   const [showJitsiView, setShowJitsiView] = useState(false);
-  const startJitsiAsNativeController = async () => {
-    /* 
-      Mode 1 - Starts a new Jitsi Activity/UIViewController on top of RN Application (outside of JS).
-      It doesn't require rendering JitsiMeetView Component.
-    */
-
-    await JitsiMeet.launchJitsiMeetView(conferenceOptions)
-
-    /*
-      Note:
-        JitsiMeet.launchJitsiMeetView will return a promise, which is resolved once the conference is terminated and the JitsiMeetView is dismissed.
-    */
-  };
 
   /*
     The localParticipant leaves the current conference.
@@ -41,9 +28,9 @@ function App() {
       <JitsiMeetView
         style={styles.jitsiMeetView}
         options={conferenceOptions}
-        onConferenceTerminated={(_) => setShowJitsiView(false)}
-        onConferenceJoined={(_) => console.log('joined')}
-        onConferenceWillJoin={(_) => console.log('will join')}
+        onConferenceTerminated={_ => setShowJitsiView(false)}
+        onConferenceJoined={_ => console.log('joined')}
+        onConferenceWillJoin={_ => console.log('will join')}
       />
     );
   }
@@ -52,17 +39,8 @@ function App() {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => setShowJitsiView(true)}
-        style={styles.button}
-      >
+        style={styles.button}>
         <Text style={styles.buttonText}>Start Jitsi as a RN View</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={startJitsiAsNativeController}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>
-          Start Jitsi on top of RN Application
-        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -77,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#343a40',
   },
   buttonText: {
-    color: '#FFF'
+    color: '#FFF',
   },
   container: {
     flex: 1,
